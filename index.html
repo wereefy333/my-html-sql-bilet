@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title> SQL </title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f9f9f9; color: #222; }
+        .ticket { background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; margin: 24px auto; padding: 20px; max-width: 800px; }
+        h2 { color: #2a4d7a; }
+        h3 { margin-top: 1.2em; color: #1a2a3a; }
+        pre { background: #f4f4f4; border-radius: 4px; padding: 12px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1> - </h1>
+
+    <div class="ticket">
+        <h2>Билет 1</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Студенты" с полями: id (первичный ключ), имя, фамилия, курс.<br>Вывести всех студентов 2-го курса.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Студенты (
+    id INT PRIMARY KEY,
+    имя VARCHAR(50),
+    фамилия VARCHAR(50),
+    курс INT
+);
+
+SELECT * FROM Студенты WHERE курс = 2;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 2</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицы "Книги" (id, название, автор) и "Читатели" (id, имя).<br>Найти все книги определенного автора.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Книги (
+    id INT PRIMARY KEY,
+    название VARCHAR(100),
+    автор VARCHAR(100)
+);
+CREATE TABLE Читатели (
+    id INT PRIMARY KEY,
+    имя VARCHAR(50)
+);
+
+SELECT * FROM Книги WHERE автор = 'Пушкин';
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 3</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Товары" (id, название, цена).<br>Вывести 3 самых дорогих товара.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Товары (
+    id INT PRIMARY KEY,
+    название VARCHAR(100),
+    цена DECIMAL(10,2)
+);
+
+SELECT * FROM Товары ORDER BY цена DESC LIMIT 3;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 4</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Сотрудники" (id, ФИО, должность, зарплата).<br>Подсчитать среднюю зарплату.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Сотрудники (
+    id INT PRIMARY KEY,
+    ФИО VARCHAR(100),
+    должность VARCHAR(50),
+    зарплата DECIMAL(10,2)
+);
+
+SELECT AVG(зарплата) AS Средняя_зарплата FROM Сотрудники;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 5</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицы "Группы" (id, название) и "Студенты" (id, имя, id_группы).<br>Вывести студентов определенной группы.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Группы (
+    id INT PRIMARY KEY,
+    название VARCHAR(50)
+);
+CREATE TABLE Студенты (
+    id INT PRIMARY KEY,
+    имя VARCHAR(50),
+    id_группы INT,
+    FOREIGN KEY (id_группы) REFERENCES Группы(id)
+);
+
+SELECT * FROM Студенты WHERE id_группы = 1;
+-- Или по названию группы:
+SELECT Студенты.* FROM Студенты JOIN Группы ON Студенты.id_группы = Группы.id WHERE Группы.название = 'Название_группы';
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 6</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Заказы" (id, дата, сумма).<br>Вывести заказы за последние 7 дней.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Заказы (
+    id INT PRIMARY KEY,
+    дата DATE,
+    сумма DECIMAL(10,2)
+);
+
+SELECT * FROM Заказы
+WHERE дата &gt;= CURRENT_DATE - INTERVAL '7 day';
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 7</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Продукты" (id, название, категория).<br>Вывести количество продуктов в каждой категории.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Продукты (
+    id INT PRIMARY KEY,
+    название VARCHAR(100),
+    категория VARCHAR(50)
+);
+
+SELECT категория, COUNT(*) AS Количество_продуктов
+FROM Продукты
+GROUP BY категория;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 8</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Пользователи" (id, логин, дата_регистрации).<br>Вывести пользователей, зарегистрированных в 2023 году.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Пользователи (
+    id INT PRIMARY KEY,
+    логин VARCHAR(50),
+    дата_регистрации DATE
+);
+
+SELECT * FROM Пользователи
+WHERE EXTRACT(YEAR FROM дата_регистрации) = 2023;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 9</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицы "Авторы" (id, имя) и "Книги" (id, название, id_автора).<br>Вывести все книги с именем автора.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Авторы (
+    id INT PRIMARY KEY,
+    имя VARCHAR(100)
+);
+CREATE TABLE Книги (
+    id INT PRIMARY KEY,
+    название VARCHAR(100),
+    id_автора INT,
+    FOREIGN KEY (id_автора) REFERENCES Авторы(id)
+);
+
+SELECT Книги.название, Авторы.имя
+FROM Книги
+JOIN Авторы ON Книги.id_автора = Авторы.id;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 10</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Сотрудники" (id, имя, отдел).<br>Вывести количество сотрудников в каждом отделе.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Сотрудники (
+    id INT PRIMARY KEY,
+    имя VARCHAR(100),
+    отдел VARCHAR(50)
+);
+
+SELECT отдел, COUNT(*) AS Количество_сотрудников
+FROM Сотрудники
+GROUP BY отдел;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 11</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Студенты" (id, имя, балл).<br>Вывести студентов с баллом выше среднего.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Студенты (
+    id INT PRIMARY KEY,
+    имя VARCHAR(50),
+    балл DECIMAL(5,2)
+);
+
+SELECT * FROM Студенты
+WHERE балл &gt; (SELECT AVG(балл) FROM Студенты);
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 12</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Города" (id, название, страна).<br>Вывести города определенной страны.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Города (
+    id INT PRIMARY KEY,
+    название VARCHAR(100),
+    страна VARCHAR(50)
+);
+
+SELECT * FROM Города
+WHERE страна = 'Россия';
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 13</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицы "Клиенты" (id, имя) и "Заказы" (id, сумма, id_клиента).<br>Вывести общую сумму заказов каждого клиента.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Клиенты (
+    id INT PRIMARY KEY,
+    имя VARCHAR(100)
+);
+CREATE TABLE Заказы (
+    id INT PRIMARY KEY,
+    сумма DECIMAL(10,2),
+    id_клиента INT,
+    FOREIGN KEY (id_клиента) REFERENCES Клиенты(id)
+);
+
+SELECT Клиенты.имя, SUM(Заказы.сумма) AS Общая_сумма
+FROM Клиенты
+LEFT JOIN Заказы ON Клиенты.id = Заказы.id_клиента
+GROUP BY Клиенты.имя;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 14</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Фильмы" (id, название, год).<br>Вывести фильмы, выпущенные после 2010 года.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Фильмы (
+    id INT PRIMARY KEY,
+    название VARCHAR(100),
+    год INT
+);
+
+SELECT * FROM Фильмы
+WHERE год &gt; 2010;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 15</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Отделы" (id, название) и "Сотрудники" (id, имя, id_отдела).<br>Вывести сотрудников с названием их отдела.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Отделы (
+    id INT PRIMARY KEY,
+    название VARCHAR(100)
+);
+CREATE TABLE Сотрудники (
+    id INT PRIMARY KEY,
+    имя VARCHAR(100),
+    id_отдела INT,
+    FOREIGN KEY (id_отдела) REFERENCES Отделы(id)
+);
+
+SELECT Сотрудники.имя, Отделы.название AS отдел
+FROM Сотрудники
+JOIN Отделы ON Сотрудники.id_отдела = Отделы.id;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 16</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Товары" (id, название, цена, количество).<br>Вывести товары, которых осталось меньше 10 штук.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Товары (
+    id INT PRIMARY KEY,
+    название VARCHAR(100),
+    цена DECIMAL(10,2),
+    количество INT
+);
+
+SELECT * FROM Товары
+WHERE количество &lt; 10;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 17</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Студенты" (id, имя, дата_рождения).<br>Вывести студентов, родившихся в мае.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Студенты (
+    id INT PRIMARY KEY,
+    имя VARCHAR(50),
+    дата_рождения DATE
+);
+
+SELECT * FROM Студенты
+WHERE EXTRACT(MONTH FROM дата_рождения) = 5;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 18</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицы "Преподаватели" (id, имя) и "Предметы" (id, название, id_преподавателя).<br>Вывести предметы с именем преподавателя.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Преподаватели (
+    id INT PRIMARY KEY,
+    имя VARCHAR(100)
+);
+CREATE TABLE Предметы (
+    id INT PRIMARY KEY,
+    название VARCHAR(100),
+    id_преподавателя INT,
+    FOREIGN KEY (id_преподавателя) REFERENCES Преподаватели(id)
+);
+
+SELECT Предметы.название, Преподаватели.имя
+FROM Предметы
+JOIN Преподаватели ON Предметы.id_преподавателя = Преподаватели.id;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 19</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Продукты" (id, название, цена).<br>Обновить цену определенного продукта.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Продукты (
+    id INT PRIMARY KEY,
+    название VARCHAR(100),
+    цена DECIMAL(10,2)
+);
+
+UPDATE Продукты
+SET цена = 200.00
+WHERE id = 1;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 20</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Пользователи" (id, имя, email).<br>Найти пользователей по части email.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Пользователи (
+    id INT PRIMARY KEY,
+    имя VARCHAR(100),
+    email VARCHAR(100)
+);
+
+SELECT * FROM Пользователи
+WHERE email LIKE '%mail%';
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 21</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицы "Категории" (id, название) и "Товары" (id, название, id_категории).<br>Вывести количество товаров в каждой категории.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Категории (
+    id INT PRIMARY KEY,
+    название VARCHAR(100)
+);
+CREATE TABLE Товары (
+    id INT PRIMARY KEY,
+    название VARCHAR(100),
+    id_категории INT,
+    FOREIGN KEY (id_категории) REFERENCES Категории(id)
+);
+
+SELECT Категории.название, COUNT(Товары.id) AS Количество_товаров
+FROM Категории
+LEFT JOIN Товары ON Категории.id = Товары.id_категории
+GROUP BY Категории.название;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 22</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Сотрудники" (id, имя, зарплата).<br>Вывести сотрудников с зарплатой в диапазоне от 50000 до 100000.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Сотрудники (
+    id INT PRIMARY KEY,
+    имя VARCHAR(100),
+    зарплата DECIMAL(10,2)
+);
+
+SELECT * FROM Сотрудники
+WHERE зарплата BETWEEN 50000 AND 100000;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 23</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Студенты" (id, имя, факультет).<br>Вывести уникальные факультеты.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Студенты (
+    id INT PRIMARY KEY,
+    имя VARCHAR(100),
+    факультет VARCHAR(100)
+);
+
+SELECT DISTINCT факультет FROM Студенты;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 24</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Заказы" (id, дата, статус).<br>Вывести заказы с определенным статусом.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Заказы (
+    id INT PRIMARY KEY,
+    дата DATE,
+    статус VARCHAR(50)
+);
+
+SELECT * FROM Заказы
+WHERE статус = 'Выполнен';
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 25</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Книги" (id, название, год).<br>Вывести книги, отсортированные по году издания.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Книги (
+    id INT PRIMARY KEY,
+    название VARCHAR(100),
+    год INT
+);
+
+SELECT * FROM Книги
+ORDER BY год;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 26</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицы "Клиенты" (id, имя) и "Отзывы" (id, текст, id_клиента).<br>Вывести отзывы с именем клиента.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Клиенты (
+    id INT PRIMARY KEY,
+    имя VARCHAR(100)
+);
+CREATE TABLE Отзывы (
+    id INT PRIMARY KEY,
+    текст TEXT,
+    id_клиента INT,
+    FOREIGN KEY (id_клиента) REFERENCES Клиенты(id)
+);
+
+SELECT Отзывы.текст, Клиенты.имя
+FROM Отзывы
+JOIN Клиенты ON Отзывы.id_клиента = Клиенты.id;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 27</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Товары" (id, название, цена).<br>Вывести товары с ценой меньше средней.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Товары (
+    id INT PRIMARY KEY,
+    название VARCHAR(100),
+    цена DECIMAL(10,2)
+);
+
+SELECT * FROM Товары
+WHERE цена &lt; (SELECT AVG(цена) FROM Товары);
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 28</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Сотрудники" (id, имя, дата_приема).<br>Вывести сотрудников, принятых в текущем году.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Сотрудники (
+    id INT PRIMARY KEY,
+    имя VARCHAR(100),
+    дата_приема DATE
+);
+
+SELECT * FROM Сотрудники
+WHERE EXTRACT(YEAR FROM дата_приема) = EXTRACT(YEAR FROM CURRENT_DATE);
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 29</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Студенты" (id, имя, группа).<br>Вывести количество студентов в каждой группе.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Студенты (
+    id INT PRIMARY KEY,
+    имя VARCHAR(100),
+    группа VARCHAR(50)
+);
+
+SELECT группа, COUNT(*) AS Количество_студентов
+FROM Студенты
+GROUP BY группа;
+</pre>
+    </div>
+
+    <div class="ticket">
+        <h2>Билет 30</h2>
+        <h3>Вопрос</h3>
+        <p>Создайте таблицу "Продукты" (id, название, цена).<br>Вывести самый дорогой продукт.</p>
+        <h3>Ответ</h3>
+        <pre>CREATE TABLE Продукты (
+    id INT PRIMARY KEY,
+    название VARCHAR(100),
+    цена DECIMAL(10,2)
+);
+
+SELECT * FROM Продукты
+ORDER BY цена DESC
+LIMIT 1;
+</pre>
+    </div>
+
+</body>
+</html> 
