@@ -77,6 +77,39 @@
             .ticket { padding: 12px 4vw; }
             pre { font-size: 0.98em; }
         }
+        .insert-toggle {
+            background: #23283a;
+            color: #7ecfff;
+            border: 1px solid #2d3246;
+            border-radius: 6px;
+            padding: 10px 18px;
+            margin: 12px 0 0 0;
+            cursor: pointer;
+            font-size: 1.01em;
+            transition: background 0.2s, color 0.2s;
+            box-shadow: 0 2px 8px #0002;
+            user-select: none;
+        }
+        .insert-toggle:hover {
+            background: #2d3246;
+            color: #b3e1ff;
+        }
+        .insert-example {
+            background: #181c24;
+            border: 1px solid #2d3246;
+            border-radius: 0 0 6px 6px;
+            margin-bottom: 8px;
+            margin-top: 0;
+            padding: 0 0 0 0;
+        }
+        .insert-example pre {
+            margin: 0;
+            padding: 14px 18px;
+            color: #b3e1ff;
+            font-size: 1em;
+            background: none;
+            border: none;
+        }
     </style>
 </head>
 <body>
@@ -96,6 +129,17 @@
 
 SELECT * FROM Студенты WHERE курс = 2;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert1')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert1" style="display:none;">
+            <pre>INSERT INTO Студенты (id, имя, фамилия, курс) VALUES
+(1, 'Иван', 'Иванов', 2),
+(2, 'Мария', 'Петрова', 1),
+(3, 'Алексей', 'Сидоров', 2),
+(4, 'Ольга', 'Кузнецова', 3);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -124,6 +168,20 @@ CREATE TABLE Читатели (
 
 SELECT * FROM Книги WHERE автор = 'Пушкин';
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert2')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert2" style="display:none;">
+            <pre>INSERT INTO Книги (id, название, автор) VALUES
+(1, 'Война и мир', 'Толстой'),
+(2, 'Евгений Онегин', 'Пушкин'),
+(3, 'Преступление и наказание', 'Достоевский');
+
+INSERT INTO Читатели (id, имя) VALUES
+(1, 'Иван'),
+(2, 'Мария');
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -148,6 +206,17 @@ SELECT * FROM Книги WHERE автор = 'Пушкин';
 
 SELECT * FROM Товары ORDER BY цена DESC LIMIT 3;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert3')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert3" style="display:none;">
+            <pre>INSERT INTO Товары (id, название, цена) VALUES
+(1, 'Ноутбук', 80000.00),
+(2, 'Смартфон', 50000.00),
+(3, 'Планшет', 30000.00),
+(4, 'Монитор', 20000.00);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -172,6 +241,16 @@ SELECT * FROM Товары ORDER BY цена DESC LIMIT 3;
 
 SELECT AVG(зарплата) AS Средняя_зарплата FROM Сотрудники;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert4')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert4" style="display:none;">
+            <pre>INSERT INTO Сотрудники (id, ФИО, должность, зарплата) VALUES
+(1, 'Иванов Иван Иванович', 'Менеджер', 60000.00),
+(2, 'Петров Петр Петрович', 'Бухгалтер', 70000.00),
+(3, 'Сидорова Ольга Сергеевна', 'Директор', 120000.00);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -202,6 +281,20 @@ SELECT * FROM Студенты WHERE id_группы = 1;
 -- Или по названию группы:
 SELECT Студенты.* FROM Студенты JOIN Группы ON Студенты.id_группы = Группы.id WHERE Группы.название = 'Название_группы';
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert5')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert5" style="display:none;">
+            <pre>INSERT INTO Группы (id, название) VALUES
+(1, 'ПМИ-101'),
+(2, 'ПМИ-102');
+
+INSERT INTO Студенты (id, имя, id_группы) VALUES
+(1, 'Иван', 1),
+(2, 'Мария', 2),
+(3, 'Ольга', 1);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -226,6 +319,16 @@ SELECT Студенты.* FROM Студенты JOIN Группы ON Студе�
 SELECT * FROM Заказы
 WHERE дата &gt;= CURRENT_DATE - INTERVAL '7 day';
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert6')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert6" style="display:none;">
+            <pre>INSERT INTO Заказы (id, дата, сумма) VALUES
+(1, '2024-05-01', 1500.00),
+(2, '2024-05-05', 2500.00),
+(3, '2024-05-07', 3200.00);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -252,6 +355,17 @@ SELECT категория, COUNT(*) AS Количество_продуктов
 FROM Продукты
 GROUP BY категория;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert7')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert7" style="display:none;">
+            <pre>INSERT INTO Продукты (id, название, категория) VALUES
+(1, 'Молоко', 'Молочные'),
+(2, 'Хлеб', 'Выпечка'),
+(3, 'Сыр', 'Молочные'),
+(4, 'Булка', 'Выпечка');
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -276,6 +390,16 @@ GROUP BY категория;
 SELECT * FROM Пользователи
 WHERE EXTRACT(YEAR FROM дата_регистрации) = 2023;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert8')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert8" style="display:none;">
+            <pre>INSERT INTO Пользователи (id, логин, дата_регистрации) VALUES
+(1, 'user1', '2023-01-15'),
+(2, 'user2', '2022-12-10'),
+(3, 'user3', '2023-05-20');
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -306,6 +430,19 @@ SELECT Книги.название, Авторы.имя
 FROM Книги
 JOIN Авторы ON Книги.id_автора = Авторы.id;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert9')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert9" style="display:none;">
+            <pre>INSERT INTO Авторы (id, имя) VALUES
+(1, 'Пушкин'),
+(2, 'Толстой');
+
+INSERT INTO Книги (id, название, id_автора) VALUES
+(1, 'Евгений Онегин', 1),
+(2, 'Война и мир', 2);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -331,6 +468,16 @@ SELECT отдел, COUNT(*) AS Количество_сотрудников
 FROM Сотрудники
 GROUP BY отдел;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert10')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert10" style="display:none;">
+            <pre>INSERT INTO Сотрудники (id, имя, отдел) VALUES
+(1, 'Иван', 'Бухгалтерия'),
+(2, 'Мария', 'Отдел продаж'),
+(3, 'Ольга', 'Бухгалтерия');
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -354,6 +501,16 @@ GROUP BY отдел;
 SELECT * FROM Студенты
 WHERE балл &gt; (SELECT AVG(балл) FROM Студенты);
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert11')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert11" style="display:none;">
+            <pre>INSERT INTO Студенты (id, имя, балл) VALUES
+(1, 'Иван', 4.5),
+(2, 'Мария', 3.8),
+(3, 'Ольга', 4.9);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -378,6 +535,16 @@ WHERE балл &gt; (SELECT AVG(балл) FROM Студенты);
 SELECT * FROM Города
 WHERE страна = 'Россия';
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert12')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert12" style="display:none;">
+            <pre>INSERT INTO Города (id, название, страна) VALUES
+(1, 'Москва', 'Россия'),
+(2, 'Париж', 'Франция'),
+(3, 'Санкт-Петербург', 'Россия');
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -409,6 +576,20 @@ FROM Клиенты
 LEFT JOIN Заказы ON Клиенты.id = Заказы.id_клиента
 GROUP BY Клиенты.имя;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert13')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert13" style="display:none;">
+            <pre>INSERT INTO Клиенты (id, имя) VALUES
+(1, 'Иван'),
+(2, 'Мария');
+
+INSERT INTO Заказы (id, сумма, id_клиента) VALUES
+(1, 1000.00, 1),
+(2, 2000.00, 1),
+(3, 1500.00, 2);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -434,6 +615,16 @@ GROUP BY Клиенты.имя;
 SELECT * FROM Фильмы
 WHERE год &gt; 2010;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert14')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert14" style="display:none;">
+            <pre>INSERT INTO Фильмы (id, название, год) VALUES
+(1, 'Интерстеллар', 2014),
+(2, 'Матрица', 1999),
+(3, 'Начало', 2010);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -464,6 +655,19 @@ SELECT Сотрудники.имя, Отделы.название AS отдел
 FROM Сотрудники
 JOIN Отделы ON Сотрудники.id_отдела = Отделы.id;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert15')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert15" style="display:none;">
+            <pre>INSERT INTO Отделы (id, название) VALUES
+(1, 'Бухгалтерия'),
+(2, 'Отдел продаж');
+
+INSERT INTO Сотрудники (id, имя, id_отдела) VALUES
+(1, 'Иван', 1),
+(2, 'Мария', 2);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -489,6 +693,16 @@ JOIN Отделы ON Сотрудники.id_отдела = Отделы.id;
 SELECT * FROM Товары
 WHERE количество &lt; 10;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert16')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert16" style="display:none;">
+            <pre>INSERT INTO Товары (id, название, цена, количество) VALUES
+(1, 'Молоко', 80.00, 5),
+(2, 'Хлеб', 40.00, 12),
+(3, 'Сыр', 300.00, 8);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -513,6 +727,16 @@ WHERE количество &lt; 10;
 SELECT * FROM Студенты
 WHERE EXTRACT(MONTH FROM дата_рождения) = 5;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert17')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert17" style="display:none;">
+            <pre>INSERT INTO Студенты (id, имя, дата_рождения) VALUES
+(1, 'Иван', '2004-05-12'),
+(2, 'Мария', '2003-11-23'),
+(3, 'Ольга', '2004-05-30');
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -543,6 +767,19 @@ SELECT Предметы.название, Преподаватели.имя
 FROM Предметы
 JOIN Преподаватели ON Предметы.id_преподавателя = Преподаватели.id;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert18')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert18" style="display:none;">
+            <pre>INSERT INTO Преподаватели (id, имя) VALUES
+(1, 'Иванов'),
+(2, 'Петров');
+
+INSERT INTO Предметы (id, название, id_преподавателя) VALUES
+(1, 'Математика', 1),
+(2, 'Физика', 2);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -568,6 +805,18 @@ UPDATE Продукты
 SET цена = 200.00
 WHERE id = 1;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert19')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert19" style="display:none;">
+            <pre>INSERT INTO Продукты (id, название, цена) VALUES
+(1, 'Молоко', 80.00),
+(2, 'Хлеб', 40.00);
+
+-- Для обновления:
+UPDATE Продукты SET цена = 100.00 WHERE id = 1;
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -591,6 +840,15 @@ WHERE id = 1;
 SELECT * FROM Пользователи
 WHERE email LIKE '%mail%';
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert20')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert20" style="display:none;">
+            <pre>INSERT INTO Пользователи (id, имя, email) VALUES
+(1, 'Иван', 'ivan@mail.ru'),
+(2, 'Мария', 'maria@gmail.com');
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -621,6 +879,19 @@ FROM Категории
 LEFT JOIN Товары ON Категории.id = Товары.id_категории
 GROUP BY Категории.название;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert21')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert21" style="display:none;">
+            <pre>INSERT INTO Категории (id, название) VALUES
+(1, 'Молочные'),
+(2, 'Выпечка');
+
+INSERT INTO Товары (id, название, id_категории) VALUES
+(1, 'Молоко', 1),
+(2, 'Хлеб', 2);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -646,6 +917,16 @@ GROUP BY Категории.название;
 SELECT * FROM Сотрудники
 WHERE зарплата BETWEEN 50000 AND 100000;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert22')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert22" style="display:none;">
+            <pre>INSERT INTO Сотрудники (id, имя, зарплата) VALUES
+(1, 'Иван', 60000.00),
+(2, 'Мария', 80000.00),
+(3, 'Ольга', 120000.00);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -668,6 +949,16 @@ WHERE зарплата BETWEEN 50000 AND 100000;
 
 SELECT DISTINCT факультет FROM Студенты;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert23')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert23" style="display:none;">
+            <pre>INSERT INTO Студенты (id, имя, факультет) VALUES
+(1, 'Иван', 'Физика'),
+(2, 'Мария', 'Математика'),
+(3, 'Ольга', 'Физика');
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -692,6 +983,15 @@ SELECT DISTINCT факультет FROM Студенты;
 SELECT * FROM Заказы
 WHERE статус = 'Выполнен';
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert24')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert24" style="display:none;">
+            <pre>INSERT INTO Заказы (id, дата, статус) VALUES
+(1, '2024-05-01', 'Выполнен'),
+(2, '2024-05-05', 'В обработке');
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -716,6 +1016,15 @@ WHERE статус = 'Выполнен';
 SELECT * FROM Книги
 ORDER BY год;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert25')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert25" style="display:none;">
+            <pre>INSERT INTO Книги (id, название, год) VALUES
+(1, 'Война и мир', 1869),
+(2, 'Евгений Онегин', 1833);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -745,6 +1054,19 @@ SELECT Отзывы.текст, Клиенты.имя
 FROM Отзывы
 JOIN Клиенты ON Отзывы.id_клиента = Клиенты.id;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert26')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert26" style="display:none;">
+            <pre>INSERT INTO Клиенты (id, имя) VALUES
+(1, 'Иван'),
+(2, 'Мария');
+
+INSERT INTO Отзывы (id, текст, id_клиента) VALUES
+(1, 'Отличный сервис!', 1),
+(2, 'Спасибо!', 2);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -769,6 +1091,16 @@ JOIN Клиенты ON Отзывы.id_клиента = Клиенты.id;
 SELECT * FROM Товары
 WHERE цена &lt; (SELECT AVG(цена) FROM Товары);
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert27')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert27" style="display:none;">
+            <pre>INSERT INTO Товары (id, название, цена) VALUES
+(1, 'Молоко', 80.00),
+(2, 'Хлеб', 40.00),
+(3, 'Сыр', 300.00);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -792,6 +1124,15 @@ WHERE цена &lt; (SELECT AVG(цена) FROM Товары);
 SELECT * FROM Сотрудники
 WHERE EXTRACT(YEAR FROM дата_приема) = EXTRACT(YEAR FROM CURRENT_DATE);
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert28')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert28" style="display:none;">
+            <pre>INSERT INTO Сотрудники (id, имя, дата_приема) VALUES
+(1, 'Иван', '2024-01-10'),
+(2, 'Мария', '2023-05-15');
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -817,6 +1158,16 @@ SELECT группа, COUNT(*) AS Количество_студентов
 FROM Студенты
 GROUP BY группа;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert29')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert29" style="display:none;">
+            <pre>INSERT INTO Студенты (id, имя, группа) VALUES
+(1, 'Иван', 'ПМИ-101'),
+(2, 'Мария', 'ПМИ-102'),
+(3, 'Ольга', 'ПМИ-101');
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -841,6 +1192,16 @@ SELECT * FROM Продукты
 ORDER BY цена DESC
 LIMIT 1;
 </pre>
+        <div class="insert-toggle" onclick="toggleInsert('insert30')">
+            <span>Правильное заполнение — нажмите для примера</span>
+        </div>
+        <div class="insert-example" id="insert30" style="display:none;">
+            <pre>INSERT INTO Продукты (id, название, цена) VALUES
+(1, 'Молоко', 80.00),
+(2, 'Сыр', 300.00),
+(3, 'Хлеб', 40.00);
+</pre>
+        </div>
         <div class="desc">
             <b>Пояснение:</b> <br>
             <ul>
@@ -851,7 +1212,18 @@ LIMIT 1;
     </div>
 
     <footer style="text-align:center; margin:40px 0 20px 0;">
-        <span style="font-size:11px; color:#888;">Все материалы предоставлены исключительно для учебных целей. Автор (wereefy) не несёт ответственности за их использование на экзаменах, тестах и других мероприятиях.</span>
+        <span style="font-size:11px; color:#888;">Все материалы предоставлены исключительно для учебных целей. Автор (wereefy) не несёт ответственности за их использование на экзаменах, тестах и других мероприятиях.<br>Пожалуйста, проверяйте все решения самостоятельно — возможны ошибки или неточности.</span>
     </footer>
+
+    <script>
+    function toggleInsert(id) {
+        var el = document.getElementById(id);
+        if (el.style.display === 'block') {
+            el.style.display = 'none';
+        } else {
+            el.style.display = 'block';
+        }
+    }
+    </script>
 </body>
 </html> 
