@@ -4,12 +4,79 @@
     <meta charset="UTF-8">
     <title> SQL </title>
     <style>
-        body { font-family: Arial, sans-serif; background: #f9f9f9; color: #222; }
-        .ticket { background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; margin: 24px auto; padding: 20px; max-width: 800px; }
-        h2 { color: #2a4d7a; }
-        h3 { margin-top: 1.2em; color: #1a2a3a; }
-        pre { background: #f4f4f4; border-radius: 4px; padding: 12px; overflow-x: auto; }
-        .desc { margin-top: 10px; padding: 10px; background: #f4f4f4; border-radius: 4px; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #181c24;
+            color: #e0e3e8;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #7ecfff;
+            margin-top: 32px;
+            letter-spacing: 1px;
+        }
+        .ticket {
+            background: #23283a;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px #0005;
+            margin: 32px auto;
+            padding: 28px 28px 18px 28px;
+            max-width: 900px;
+            border: 1px solid #2d3246;
+        }
+        h2 {
+            color: #7ecfff;
+            margin-bottom: 0.2em;
+        }
+        h3 {
+            margin-top: 1.2em;
+            color: #b3e1ff;
+            font-weight: 500;
+        }
+        pre {
+            background: #181c24;
+            border-radius: 6px;
+            padding: 16px;
+            overflow-x: auto;
+            color: #e0e3e8;
+            font-size: 1.08em;
+            border: 1px solid #2d3246;
+        }
+        .desc {
+            margin-top: 16px;
+            padding: 18px 20px 12px 20px;
+            background: linear-gradient(90deg, #23283a 80%, #2d3246 100%);
+            border-left: 5px solid #7ecfff;
+            border-radius: 0 8px 8px 0;
+            color: #e0e3e8;
+            font-size: 1.04em;
+            box-shadow: 0 2px 8px #0002;
+            transition: background 0.3s;
+        }
+        .desc b {
+            color: #7ecfff;
+        }
+        .desc ul {
+            margin: 8px 0 0 18px;
+            padding: 0;
+        }
+        .desc li {
+            margin-bottom: 6px;
+        }
+        footer {
+            text-align: center;
+            margin: 40px 0 20px 0;
+        }
+        footer span {
+            font-size: 11px;
+            color: #888;
+        }
+        @media (max-width: 600px) {
+            .ticket { padding: 12px 4vw; }
+            pre { font-size: 0.98em; }
+        }
     </style>
 </head>
 <body>
